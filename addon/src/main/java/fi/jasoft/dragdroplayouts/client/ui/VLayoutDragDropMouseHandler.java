@@ -196,8 +196,7 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         boolean isTabCaption = targetParent instanceof VTabsheet.TabCaption;
         boolean isCaption = VDragDropUtil.isCaptionOrCaptionless(targetParent);
 
-        if (dragMode == LayoutDragMode.CLONE && isTabCaption == false) {
-
+        if (dragMode == LayoutDragMode.CLONE && !isTabCaption) {
             stopEventPropagation = true;
 
             // overwrite stopEventPropagation flag again if
@@ -253,7 +252,9 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
 
     private boolean isElementNotDraggable(Element targetElement) {
         // do not try to drag tabsheet close button it breaks close on touch devices
-        return targetElement.getClassName().contains("v-tabsheet-caption-close");
+        return targetElement.getClassName().contains("v-tabsheet-caption-close")
+                || (targetElement.getClassName().contains("v-caption") &&
+                    targetElement.getParentElement().getClassName().contains("v-tabsheet-tabitem"));
     }
 
     /**
