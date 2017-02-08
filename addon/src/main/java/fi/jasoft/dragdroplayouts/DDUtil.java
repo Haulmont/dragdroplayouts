@@ -1,20 +1,18 @@
 package fi.jasoft.dragdroplayouts;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.shared.Connector;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
-
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.DDLayoutState;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.DragAndDropAwareState;
 import fi.jasoft.dragdroplayouts.drophandlers.AbstractDefaultLayoutDropHandler;
-import fi.jasoft.dragdroplayouts.interfaces.DragFilterSupport;
-import fi.jasoft.dragdroplayouts.interfaces.DragImageProvider;
-import fi.jasoft.dragdroplayouts.interfaces.DragImageReferenceSupport;
+import fi.jasoft.dragdroplayouts.interfaces.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class DDUtil {
 
@@ -33,6 +31,13 @@ public class DDUtil {
                 dragAndDropState.draggable.add(c);
             }
 
+            if (layout instanceof DragGrabFilterSupport) {
+                DragGrabFilter dragGrabFilter = ((DragGrabFilterSupport) layout).getDragGrabFilter();
+                if (dragGrabFilter != null) {
+                    addNonGrabbedComponents(dragAndDropState.nonGrabbableAnchors, c, dragGrabFilter);
+                }
+            }
+
             if (layout instanceof DragImageReferenceSupport) {
                 DragImageProvider provider = ((DragImageReferenceSupport) layout)
                         .getDragImageProvider();
@@ -43,6 +48,20 @@ public class DDUtil {
                                 dragImage);
                     }
                 }
+            }
+        }
+    }
+
+    private static void addNonGrabbedComponents(List<Connector> nonDraggableAnchors, Component component,
+                                                DragGrabFilter dragGrabFilter) {
+        if (!dragGrabFilter.canBeGrabbed(component)) {
+            nonDraggableAnchors.add(component);
+        }
+
+        if (component instanceof HasComponents
+                && !(component instanceof LayoutDragSource)) {
+            for (Component child : ((HasComponents) component)) {
+                addNonGrabbedComponents(nonDraggableAnchors, child, dragGrabFilter);
             }
         }
     }

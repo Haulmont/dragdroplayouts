@@ -27,17 +27,13 @@ import com.vaadin.shared.ui.dd.VerticalDropLocation;
 
 import fi.jasoft.dragdroplayouts.DDVerticalLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.Constants;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDDHasDropHandler;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDragImageProvider;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragImageReferenceSupport;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasIframeShims;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 
 /**
@@ -48,7 +44,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
         VDDHasDropHandler<VDDVerticalLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasDragGrabFilter {
 
     private Widget currentlyEmphasised;
 
@@ -59,6 +55,8 @@ public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
     private VDDVerticalLayoutDropHandler dropHandler;
 
     private VDragFilter dragFilter;
+
+    private VGrabFilter grabFilter;
 
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
@@ -331,5 +329,15 @@ public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
 
     protected final VLayoutDragDropMouseHandler getMouseHandler() {
         return ddMouseHandler;
+    }
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return grabFilter;
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        this.grabFilter = grabFilter;
     }
 }

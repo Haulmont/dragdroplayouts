@@ -492,6 +492,8 @@ public final class VDragDropUtil {
                             .setDragFilter(new VDragFilter(state));
                 }
 
+                // todo
+
                 if (widget instanceof VHasDragImageReferenceSupport) {
                     ((VHasDragImageReferenceSupport) widget)
                             .setDragImageProvider(

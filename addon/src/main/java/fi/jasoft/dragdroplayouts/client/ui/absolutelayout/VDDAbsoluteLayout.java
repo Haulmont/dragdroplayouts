@@ -23,17 +23,13 @@ import com.vaadin.shared.MouseEventDetails;
 
 import fi.jasoft.dragdroplayouts.DDAbsoluteLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.Constants;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDDHasDropHandler;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDragImageProvider;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragImageReferenceSupport;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasIframeShims;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 
 /**
@@ -44,7 +40,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
         VDDHasDropHandler<VDDAbsoluteLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasDragGrabFilter {
 
     public static final String CLASSNAME = "v-ddabsolutelayout";
 
@@ -58,6 +54,8 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
     private LayoutDragMode mode = LayoutDragMode.NONE;
+
+    private VGrabFilter grabFilter;
 
     private boolean iframeCovers = false;
 
@@ -242,5 +240,15 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
 
     protected final VLayoutDragDropMouseHandler getMouseHandler() {
         return ddHandler;
+    }
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return grabFilter;
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        this.grabFilter = grabFilter;
     }
 }

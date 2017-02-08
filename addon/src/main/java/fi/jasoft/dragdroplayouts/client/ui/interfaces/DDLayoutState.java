@@ -13,15 +13,14 @@
  */
 package fi.jasoft.dragdroplayouts.client.ui.interfaces;
 
+import com.vaadin.shared.Connector;
+import com.vaadin.shared.communication.SharedState;
+import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.vaadin.shared.Connector;
-import com.vaadin.shared.communication.SharedState;
-
-import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 
 public class DDLayoutState extends SharedState {
 
@@ -33,6 +32,9 @@ public class DDLayoutState extends SharedState {
 
     // Which connectors are draggable
     public List<Connector> draggable = new ArrayList<Connector>();
+
+    // Which connectors cannot be used as anchor
+    public List<Connector> nonGrabbableAnchors = new ArrayList<Connector>();
 
     // Reference drag images
     public Map<Connector, Connector> referenceImageComponents = new HashMap<Connector, Connector>();

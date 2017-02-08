@@ -4,10 +4,17 @@ plugins {
     id 'osgi'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+subprojects {
+  apply plugin: 'fi.jasoft.plugin.vaadin'
+  vaadin {
+      version = '7.7.3'
+  }
+  sourceCompatibility = 1.7
+  targetCompatibility = 1.7
 
-vaadin.version = '8.0.0.alpha2'
+  javadoc.enabled = false
+  vaadinJavadocJar.enabled = false
+}
 
 configurations {
     deploy
@@ -40,7 +47,7 @@ jar {
   dependsOn test, createAddonPom
 
   // Include sources
-  sourceSets.main.java.srcDirs.each{
+  sourceSets.main.java.srcDirs.each {
     from it
   }
 
@@ -62,10 +69,11 @@ vaadinSourcesJar {
     baseName = 'dragdroplayouts'
 }
 
+javadoc.enabled = false
+
 vaadinJavadocJar {
     baseName = 'dragdroplayouts'
 }
-
 
 artifacts {
     archives jar
@@ -92,5 +100,9 @@ uploadArchives {
         addFilter('jar') {artifact, file ->
             artifact.ext == 'jar'
         }
+    }
+
+    configurations.archives.artifacts.removeAll {
+        it.file =~ 'war' || it.file =~ 'javadoc'
     }
 }
