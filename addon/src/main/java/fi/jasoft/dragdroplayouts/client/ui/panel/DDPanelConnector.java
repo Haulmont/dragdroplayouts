@@ -20,12 +20,14 @@ import com.vaadin.shared.ui.Connect;
 
 import fi.jasoft.dragdroplayouts.DDPanel;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDPanel.class)
-public class DDPanelConnector extends PanelConnector implements VHasDragFilter {
+public class DDPanelConnector extends PanelConnector implements VHasDragFilter, VHasDragGrabFilter {
 
     private HTML5Support html5Support;
 
@@ -33,6 +35,16 @@ public class DDPanelConnector extends PanelConnector implements VHasDragFilter {
     public void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return getWidget().getGrabFilter();
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        getWidget().setGrabFilter(grabFilter);
     }
 
     @Override

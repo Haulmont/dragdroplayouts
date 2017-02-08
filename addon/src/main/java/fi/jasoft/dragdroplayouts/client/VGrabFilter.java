@@ -14,20 +14,31 @@ public class VGrabFilter {
         this.state = state;
     }
 
-    public boolean isDraggable(Widget widget) {
-        ComponentConnector component = findConnectorFor(widget);
-        if (state.draggable != null) {
-            return state.draggable.contains(component);
+    public boolean isDraggable(Widget root, Widget widget) {
+        if (state.nonGrabbable != null) {
+            return findConnectorFor(root, widget);
         }
-        return false;
+        return true;
     }
 
-    private ComponentConnector findConnectorFor(Widget widget) {
+    private boolean findConnectorFor(Widget root, Widget widget) {
+        ComponentConnector connector;
         if (!isCaptionForAccordion(widget)) {
-            return Util.findConnectorFor(widget);
+            connector = Util.findConnectorFor(widget);
         } else {
-            return findConnectorForAccordionCaption(widget);
+            connector = findConnectorForAccordionCaption(widget);
         }
+
+        if (connector != null && state.nonGrabbable.contains(connector)) {
+            return false;
+        }
+
+        Widget parent = widget.getParent();
+        if (parent == root) {
+            return true;
+        }
+
+        return findConnectorFor(root, parent);
     }
 
     private ComponentConnector findConnectorForAccordionCaption(Widget widget) {

@@ -46,14 +46,9 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Link;
 
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.accordion.VDDAccordion;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.DDLayoutState;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.DragAndDropAwareState;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDDHasDropHandler;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragImageReferenceSupport;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasIframeShims;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.tabsheet.VDDTabSheet;
 
 /**
@@ -492,7 +487,10 @@ public final class VDragDropUtil {
                             .setDragFilter(new VDragFilter(state));
                 }
 
-                // todo
+                if (widget instanceof VHasDragGrabFilter) {
+                    ((VHasDragGrabFilter) widget)
+                            .setGrabFilter(new VGrabFilter(state));
+                }
 
                 if (widget instanceof VHasDragImageReferenceSupport) {
                     ((VHasDragImageReferenceSupport) widget)

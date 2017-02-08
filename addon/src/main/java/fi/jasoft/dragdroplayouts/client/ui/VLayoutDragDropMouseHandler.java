@@ -42,8 +42,8 @@ import fi.jasoft.dragdroplayouts.client.ui.accordion.VDDAccordion;
 import fi.jasoft.dragdroplayouts.client.ui.formlayout.VDDFormLayout;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VDragImageProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragImageReferenceSupport;
-import fi.jasoft.dragdroplayouts.interfaces.DragGrabFilterSupport;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -181,12 +181,6 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         Widget target = WidgetUtil.findWidget(targetElement, null);
         Widget targetParent = target.getParent();
 
-        ComponentConnector targetConnector = Util.findConnectorFor(target);
-
-        if (root instanceof DragGrabFilterSupport) {
-
-        }
-
         // Stop event propagation and prevent default behaviour if
         // - target is *not* a VTabsheet.TabCaption or
         // - drag mode is caption mode and widget is caption
@@ -208,7 +202,12 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
                 }
             }
 
-
+            if (root instanceof VHasDragGrabFilter) {
+                if (!((VHasDragGrabFilter) root).getGrabFilter()
+                        .isDraggable(root, target)) {
+                    return;
+                }
+            }
         }
 
         if (dragMode == LayoutDragMode.CAPTION && isCaption) {

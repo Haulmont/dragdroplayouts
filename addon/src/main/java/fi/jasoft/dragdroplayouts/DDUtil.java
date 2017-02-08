@@ -22,6 +22,8 @@ public class DDUtil {
         Iterator<Component> componentIterator = layout.iterator();
         dragAndDropState.draggable = new ArrayList<Connector>();
         dragAndDropState.referenceImageComponents = new HashMap<Connector, Connector>();
+        dragAndDropState.nonGrabbable.clear();
+
         while (componentIterator.hasNext()) {
             Component c = componentIterator.next();
 
@@ -34,7 +36,7 @@ public class DDUtil {
             if (layout instanceof DragGrabFilterSupport) {
                 DragGrabFilter dragGrabFilter = ((DragGrabFilterSupport) layout).getDragGrabFilter();
                 if (dragGrabFilter != null) {
-                    addNonGrabbedComponents(dragAndDropState.nonGrabbableAnchors, c, dragGrabFilter);
+                    addNonGrabbedComponents(dragAndDropState.nonGrabbable, c, dragGrabFilter);
                 }
             }
 
@@ -52,16 +54,14 @@ public class DDUtil {
         }
     }
 
-    private static void addNonGrabbedComponents(List<Connector> nonDraggableAnchors, Component component,
+    private static void addNonGrabbedComponents(List<Connector> nonGrabbable, Component component,
                                                 DragGrabFilter dragGrabFilter) {
         if (!dragGrabFilter.canBeGrabbed(component)) {
-            nonDraggableAnchors.add(component);
-        }
-
-        if (component instanceof HasComponents
+            nonGrabbable.add(component);
+        } else if (component instanceof HasComponents
                 && !(component instanceof LayoutDragSource)) {
             for (Component child : ((HasComponents) component)) {
-                addNonGrabbedComponents(nonDraggableAnchors, child, dragGrabFilter);
+                addNonGrabbedComponents(nonGrabbable, child, dragGrabFilter);
             }
         }
     }

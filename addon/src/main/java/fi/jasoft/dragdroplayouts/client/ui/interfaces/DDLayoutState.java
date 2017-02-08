@@ -34,7 +34,7 @@ public class DDLayoutState extends SharedState {
     public List<Connector> draggable = new ArrayList<Connector>();
 
     // Which connectors cannot be used as anchor
-    public List<Connector> nonGrabbableAnchors = new ArrayList<Connector>();
+    public List<Connector> nonGrabbable = new ArrayList<Connector>();
 
     // Reference drag images
     public Map<Connector, Connector> referenceImageComponents = new HashMap<Connector, Connector>();

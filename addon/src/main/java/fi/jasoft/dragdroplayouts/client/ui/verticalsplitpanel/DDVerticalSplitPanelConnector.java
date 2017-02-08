@@ -21,13 +21,15 @@ import com.vaadin.shared.ui.Connect;
 
 import fi.jasoft.dragdroplayouts.DDVerticalSplitPanel;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDVerticalSplitPanel.class)
 public class DDVerticalSplitPanelConnector extends VerticalSplitPanelConnector
-        implements Paintable, VHasDragFilter {
+        implements Paintable, VHasDragFilter, VHasDragGrabFilter {
 
     private HTML5Support html5Support;
 
@@ -35,6 +37,16 @@ public class DDVerticalSplitPanelConnector extends VerticalSplitPanelConnector
     protected void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return getWidget().getGrabFilter();
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        getWidget().setGrabFilter(grabFilter);
     }
 
     @Override

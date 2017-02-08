@@ -21,14 +21,16 @@ import com.vaadin.shared.ui.Connect;
 
 import fi.jasoft.dragdroplayouts.DDAbsoluteLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDAbsoluteLayout.class)
 public class DDAbsoluteLayoutConnector extends AbsoluteLayoutConnector
-        implements Paintable, VHasDragFilter {
+        implements Paintable, VHasDragFilter, VHasDragGrabFilter {
 
     private HTML5Support html5Support;
 
@@ -86,5 +88,15 @@ public class DDAbsoluteLayoutConnector extends AbsoluteLayoutConnector
     @Override
     public void setDragFilter(VDragFilter filter) {
         getWidget().setDragFilter(filter);
+    }
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return getWidget().getGrabFilter();
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        getWidget().setGrabFilter(grabFilter);
     }
 }

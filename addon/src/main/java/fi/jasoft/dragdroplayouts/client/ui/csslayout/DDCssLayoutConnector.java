@@ -21,15 +21,27 @@ import com.vaadin.shared.ui.Connect;
 
 import fi.jasoft.dragdroplayouts.DDCssLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDCssLayout.class)
 public class DDCssLayoutConnector extends CssLayoutConnector
-        implements Paintable, VHasDragFilter {
+        implements Paintable, VHasDragFilter, VHasDragGrabFilter {
 
     private HTML5Support html5Support;
+
+    @Override
+    public VGrabFilter getGrabFilter() {
+        return getWidget().getGrabFilter();
+    }
+
+    @Override
+    public void setGrabFilter(VGrabFilter grabFilter) {
+        getWidget().setGrabFilter(grabFilter);
+    }
 
     @Override
     public VDDCssLayout getWidget() {
