@@ -14,7 +14,7 @@ public class VGrabFilter {
         this.state = state;
     }
 
-    public boolean isDraggable(Widget root, Widget widget) {
+    public boolean isGrabbable(Widget root, Widget widget) {
         if (state.nonGrabbable != null) {
             return findConnectorFor(root, widget);
         }
@@ -34,7 +34,7 @@ public class VGrabFilter {
         }
 
         Widget parent = widget.getParent();
-        if (parent == root) {
+        if (parent != null && parent == root) {
             return true;
         }
 

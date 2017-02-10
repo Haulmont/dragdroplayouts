@@ -18,18 +18,19 @@ import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.ui.orderedlayout.VerticalLayoutConnector;
 import com.vaadin.shared.ui.Connect;
-
 import fi.jasoft.dragdroplayouts.DDVerticalLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDVerticalLayout.class)
 public class DDVerticalLayoutConnector extends VerticalLayoutConnector
-        implements Paintable, VHasDragFilter, VHasDragGrabFilter {
+        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private HTML5Support html5Support;
 
@@ -57,6 +58,16 @@ public class DDVerticalLayoutConnector extends VerticalLayoutConnector
     public void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        getWidget().setComponentDragCaption(dragCaption);
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return getWidget().getComponentDragCaption();
     }
 
     public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {

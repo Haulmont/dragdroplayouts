@@ -18,18 +18,19 @@ import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.ui.tabsheet.TabsheetConnector;
 import com.vaadin.shared.ui.Connect;
-
 import fi.jasoft.dragdroplayouts.DDTabSheet;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDTabSheet.class)
 public class DDTabsheetConnector extends TabsheetConnector
-        implements Paintable, VHasDragFilter, VHasDragGrabFilter {
+        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private HTML5Support html5Support;
 
@@ -37,6 +38,16 @@ public class DDTabsheetConnector extends TabsheetConnector
     protected void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        getWidget().setComponentDragCaption(dragCaption);
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return getWidget().getComponentDragCaption();
     }
 
     @Override

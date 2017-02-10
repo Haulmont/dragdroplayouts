@@ -22,20 +22,17 @@ import com.vaadin.client.WidgetUtil;
 import com.vaadin.client.ui.VPanel;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
-
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
-import fi.jasoft.dragdroplayouts.client.ui.Constants;
-import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
+import fi.jasoft.dragdroplayouts.client.ui.*;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 
 public class VDDPanel extends VPanel implements VHasDragMode,
         VDDHasDropHandler<VDDPanelDropHandler>, DragStartListener,
-        VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims, VHasDragGrabFilter {
+        VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims,
+        VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
@@ -47,6 +44,8 @@ public class VDDPanel extends VPanel implements VHasDragMode,
             this, LayoutDragMode.NONE);
 
     private VDragFilter dragFilter;
+
+    private VComponentDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -71,6 +70,16 @@ public class VDDPanel extends VPanel implements VHasDragMode,
         ddMouseHandler.updateDragMode(LayoutDragMode.NONE);
         iframeCoverUtility.setIframeCoversEnabled(false, getElement(),
                 LayoutDragMode.NONE);
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        this.dragCaption = dragCaption;
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return dragCaption;
     }
 
     @Override

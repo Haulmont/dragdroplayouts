@@ -18,25 +18,12 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.WidgetCollection;
-import com.vaadin.client.ComponentConnector;
-import com.vaadin.client.MouseEventDetailsBuilder;
-import com.vaadin.client.UIDL;
-import com.vaadin.client.Util;
-import com.vaadin.client.VCaption;
-import com.vaadin.client.VConsole;
-import com.vaadin.client.WidgetUtil;
+import com.vaadin.client.*;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.communication.StateChangeEvent.StateChangeHandler;
-import com.vaadin.client.ui.AbstractComponentConnector;
-import com.vaadin.client.ui.AbstractConnector;
+import com.vaadin.client.ui.*;
 import com.vaadin.client.ui.VAccordion.StackItem;
-import com.vaadin.client.ui.VButton;
-import com.vaadin.client.ui.VFilterSelect;
-import com.vaadin.client.ui.VFormLayout;
-import com.vaadin.client.ui.VLink;
-import com.vaadin.client.ui.VScrollTable;
 import com.vaadin.client.ui.VTabsheet.TabCaption;
-import com.vaadin.client.ui.VTwinColSelect;
 import com.vaadin.client.ui.dd.VTransferable;
 import com.vaadin.client.ui.orderedlayout.Slot;
 import com.vaadin.client.ui.orderedlayout.VAbstractOrderedLayout;
@@ -44,7 +31,6 @@ import com.vaadin.shared.ui.dd.HorizontalDropLocation;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Link;
-
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.accordion.VDDAccordion;
@@ -487,9 +473,16 @@ public final class VDragDropUtil {
                             .setDragFilter(new VDragFilter(state));
                 }
 
-                if (widget instanceof VHasDragGrabFilter) {
-                    ((VHasDragGrabFilter) widget)
+                if (widget instanceof VHasGrabFilter) {
+                    ((VHasGrabFilter) widget)
                             .setGrabFilter(new VGrabFilter(state));
+                }
+
+                if (widget instanceof VHasComponentDragCaptionProvider) {
+                    if (((DragAndDropAwareState) connector.getState()).getDragAndDropState().dragCaptions.size() > 0) {
+                        ((VHasComponentDragCaptionProvider) widget)
+                                .setComponentDragCaption(new VComponentDragCaptionProvider(state));
+                    }
                 }
 
                 if (widget instanceof VHasDragImageReferenceSupport) {

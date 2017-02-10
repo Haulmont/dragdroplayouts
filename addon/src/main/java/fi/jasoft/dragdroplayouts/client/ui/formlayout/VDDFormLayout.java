@@ -25,14 +25,10 @@ import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.annotations.DelegateToWidget;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
-
 import fi.jasoft.dragdroplayouts.DDFormLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
-import fi.jasoft.dragdroplayouts.client.ui.Constants;
-import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
+import fi.jasoft.dragdroplayouts.client.ui.*;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
@@ -45,7 +41,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDFormLayout extends VFormLayout implements VHasDragMode,
         VDDHasDropHandler<VDDFormLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasDragGrabFilter {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private Element currentlyEmphasised;
 
@@ -63,6 +59,8 @@ public class VDDFormLayout extends VFormLayout implements VHasDragMode,
 
     private VDragFilter dragFilter;
 
+    private VComponentDragCaptionProvider dragCaption;
+
     private VGrabFilter grabFilter;
 
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
@@ -76,6 +74,16 @@ public class VDDFormLayout extends VFormLayout implements VHasDragMode,
     public VDDFormLayout() {
         super();
         table = (VFormLayoutTable) getWidget();
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        this.dragCaption = dragCaption;
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return dragCaption;
     }
 
     @Override

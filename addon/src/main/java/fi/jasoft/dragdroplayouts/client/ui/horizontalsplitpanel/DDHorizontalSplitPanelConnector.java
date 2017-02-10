@@ -18,18 +18,20 @@ import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.ui.splitpanel.HorizontalSplitPanelConnector;
 import com.vaadin.shared.ui.Connect;
-
 import fi.jasoft.dragdroplayouts.DDHorizontalSplitPanel;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDHorizontalSplitPanel.class)
 public class DDHorizontalSplitPanelConnector extends
-        HorizontalSplitPanelConnector implements Paintable, VHasDragFilter, VHasDragGrabFilter {
+        HorizontalSplitPanelConnector implements Paintable, VHasDragFilter,
+        VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private HTML5Support html5Support;
 
@@ -37,6 +39,16 @@ public class DDHorizontalSplitPanelConnector extends
     protected void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        getWidget().setComponentDragCaption(dragCaption);
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return getWidget().getComponentDragCaption();
     }
 
     @Override

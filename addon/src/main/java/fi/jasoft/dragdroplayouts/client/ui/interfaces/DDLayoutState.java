@@ -38,4 +38,8 @@ public class DDLayoutState extends SharedState {
 
     // Reference drag images
     public Map<Connector, Connector> referenceImageComponents = new HashMap<Connector, Connector>();
+
+    public Map<Connector, String> dragCaptions = new HashMap<>();
+
+    public Map<Connector, String> dragIcons = new HashMap<>();
 }

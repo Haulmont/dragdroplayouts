@@ -20,14 +20,10 @@ import com.vaadin.client.Util;
 import com.vaadin.client.ui.VAbsoluteLayout;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
-
 import fi.jasoft.dragdroplayouts.DDAbsoluteLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
-import fi.jasoft.dragdroplayouts.client.ui.Constants;
-import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
+import fi.jasoft.dragdroplayouts.client.ui.*;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
@@ -40,7 +36,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
         VDDHasDropHandler<VDDAbsoluteLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasDragGrabFilter {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     public static final String CLASSNAME = "v-ddabsolutelayout";
 
@@ -54,6 +50,8 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
     private LayoutDragMode mode = LayoutDragMode.NONE;
+
+    private VComponentDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -250,5 +248,15 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
     @Override
     public void setGrabFilter(VGrabFilter grabFilter) {
         this.grabFilter = grabFilter;
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        this.dragCaption = dragCaption;
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return dragCaption;
     }
 }

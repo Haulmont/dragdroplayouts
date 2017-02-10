@@ -20,6 +20,7 @@ import com.vaadin.event.dd.TargetDetails;
 import com.vaadin.event.dd.TargetDetailsImpl;
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
+import com.vaadin.server.Resource;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Component;
@@ -42,7 +43,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDVerticalLayout extends VerticalLayout
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
     /**
      * The drop handler which handles dropped components in the layout.
      */
@@ -55,6 +56,8 @@ public class DDVerticalLayout extends VerticalLayout
 
     private DragImageProvider dragImageProvider;
 
+    private DragCaptionProvider dragCaptionProvider;
+
     @Override
     public DragGrabFilter getDragGrabFilter() {
         return dragGrabFilter;
@@ -63,6 +66,21 @@ public class DDVerticalLayout extends VerticalLayout
     @Override
     public void setDragGrabFilter(DragGrabFilter dragGrabFilter) {
         this.dragGrabFilter = dragGrabFilter;
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
+    }
+
+    @Override
+    public void setComponentResource(String id, Resource resource) {
+        setResource(id, resource);
     }
 
     /**

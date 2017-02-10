@@ -1,6 +1,8 @@
 package fi.jasoft.dragdroplayouts;
 
 import com.vaadin.event.dd.DropHandler;
+import com.vaadin.server.KeyMapper;
+import com.vaadin.server.ResourceReference;
 import com.vaadin.shared.Connector;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
@@ -22,7 +24,10 @@ public class DDUtil {
         Iterator<Component> componentIterator = layout.iterator();
         dragAndDropState.draggable = new ArrayList<Connector>();
         dragAndDropState.referenceImageComponents = new HashMap<Connector, Connector>();
-        dragAndDropState.nonGrabbable.clear();
+        dragAndDropState.nonGrabbable = new ArrayList<>();
+        dragAndDropState.dragCaptions = new HashMap<>();
+        dragAndDropState.dragIcons = new HashMap<>();
+        KeyMapper keyMapper = new KeyMapper();
 
         while (componentIterator.hasNext()) {
             Component c = componentIterator.next();
@@ -37,6 +42,24 @@ public class DDUtil {
                 DragGrabFilter dragGrabFilter = ((DragGrabFilterSupport) layout).getDragGrabFilter();
                 if (dragGrabFilter != null) {
                     addNonGrabbedComponents(dragAndDropState.nonGrabbable, c, dragGrabFilter);
+                }
+            }
+
+            if (layout instanceof HasDragCaptionProvider) {
+                DragCaptionProvider dragCaptionProvider = ((HasDragCaptionProvider) layout)
+                        .getDragCaptionProvider();
+
+                if (dragCaptionProvider != null) {
+                    if (dragCaptionProvider.getDragCaption(c).icon != null) {
+                        String resourceId = keyMapper.key(dragCaptionProvider.getDragCaption(c).icon);
+                        ResourceReference resourceReference = ResourceReference.create(dragCaptionProvider.getDragCaption(c).icon, layout, resourceId);
+                        dragAndDropState.resources.put(resourceId, resourceReference);
+                        ((DDVerticalLayout) layout).setComponentResource(resourceId,
+                                dragCaptionProvider.getDragCaption(c).icon);
+                        dragAndDropState.dragIcons.put(c, resourceId);
+                    }
+                    dragAndDropState.dragCaptions.put(c,
+                                    dragCaptionProvider.getDragCaption(c).caption);
                 }
             }
 

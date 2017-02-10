@@ -13,8 +13,6 @@
  */
 package fi.jasoft.dragdroplayouts.client.ui.gridlayout;
 
-import java.util.Map;
-
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
@@ -30,17 +28,15 @@ import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.HorizontalDropLocation;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
-
 import fi.jasoft.dragdroplayouts.DDGridLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
-import fi.jasoft.dragdroplayouts.client.ui.Constants;
-import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler;
+import fi.jasoft.dragdroplayouts.client.ui.*;
 import fi.jasoft.dragdroplayouts.client.ui.VLayoutDragDropMouseHandler.DragStartListener;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
 import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
+
+import java.util.Map;
 
 /**
  * Client side implementation for {@link DDGridLayout}
@@ -50,7 +46,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDGridLayout extends VGridLayout implements VHasDragMode,
         VDDHasDropHandler<VDDGridLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasDragGrabFilter {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     public static final String CLASSNAME = "v-ddgridlayout";
     public static final String OVER = CLASSNAME + "-over";
@@ -62,6 +58,8 @@ public class VDDGridLayout extends VGridLayout implements VHasDragMode,
     protected ApplicationConnection client;
 
     private VDragFilter dragFilter;
+
+    private VComponentDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -81,6 +79,16 @@ public class VDDGridLayout extends VGridLayout implements VHasDragMode,
 
     public VDDGridLayout() {
         super();
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        this.dragCaption = dragCaption;
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return dragCaption;
     }
 
     @Override

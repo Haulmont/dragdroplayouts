@@ -17,17 +17,19 @@ import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.ui.panel.PanelConnector;
 import com.vaadin.shared.ui.Connect;
-
 import fi.jasoft.dragdroplayouts.DDPanel;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragGrabFilter;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDPanel.class)
-public class DDPanelConnector extends PanelConnector implements VHasDragFilter, VHasDragGrabFilter {
+public class DDPanelConnector extends PanelConnector implements VHasDragFilter,
+        VHasGrabFilter, VHasComponentDragCaptionProvider {
 
     private HTML5Support html5Support;
 
@@ -35,6 +37,16 @@ public class DDPanelConnector extends PanelConnector implements VHasDragFilter, 
     public void init() {
         super.init();
         VDragDropUtil.listenToStateChangeEvents(this, getWidget());
+    }
+
+    @Override
+    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+        getWidget().setComponentDragCaption(dragCaption);
+    }
+
+    @Override
+    public VComponentDragCaptionProvider getComponentDragCaption() {
+        return getWidget().getComponentDragCaption();
     }
 
     @Override
