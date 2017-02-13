@@ -419,7 +419,7 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         com.google.gwt.dom.client.Element dragImageElement = null;
         if (root instanceof VHasDragCaptionProvider) {
             VDragCaptionProvider dragCaptionProvider =
-                    ((VHasDragCaptionProvider) root).getComponentDragCaption();
+                    ((VHasDragCaptionProvider) root).getDragCaptionProvider();
             if (dragCaptionProvider != null) {
                 hasDragCaption = true;
                 dragImageElement = dragCaptionProvider

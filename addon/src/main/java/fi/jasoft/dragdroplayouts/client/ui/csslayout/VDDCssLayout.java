@@ -84,12 +84,12 @@ public class VDDCssLayout extends VCssLayout implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
+    public void setDragCaptionProvider(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getDragCaptionProvider() {
         return dragCaption;
     }
 

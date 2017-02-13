@@ -40,13 +40,13 @@ public class DDPanelConnector extends PanelConnector implements VHasDragFilter,
     }
 
     @Override
-    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
-        getWidget().setComponentDragCaption(dragCaption);
+    public void setDragCaptionProvider(VDragCaptionProvider dragCaption) {
+        getWidget().setDragCaptionProvider(dragCaption);
     }
 
     @Override
-    public VDragCaptionProvider getComponentDragCaption() {
-        return getWidget().getComponentDragCaption();
+    public VDragCaptionProvider getDragCaptionProvider() {
+        return getWidget().getDragCaptionProvider();
     }
 
     @Override

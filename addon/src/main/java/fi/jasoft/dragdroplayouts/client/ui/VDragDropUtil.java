@@ -481,7 +481,7 @@ public final class VDragDropUtil {
                 if (widget instanceof VHasDragCaptionProvider) {
                     if (state.dragCaptions.size() > 0) {
                         ((VHasDragCaptionProvider) widget)
-                                .setComponentDragCaption(new VDragCaptionProvider(connector));
+                                .setDragCaptionProvider(new VDragCaptionProvider(connector));
                     }
                 }
 

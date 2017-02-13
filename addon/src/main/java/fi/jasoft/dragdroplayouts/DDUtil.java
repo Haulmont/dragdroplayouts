@@ -25,12 +25,14 @@ public class DDUtil {
         dragAndDropState.nonGrabbable = new ArrayList<>();
         dragAndDropState.dragCaptions = new HashMap<>();
 
-        for (Map.Entry<Connector, String> dragIconEntry : dragAndDropState.dragIcons.entrySet()) {
-            ClientConnectorResources.setResource(
-                    (AbstractClientConnector) dragIconEntry.getKey(),
-                    dragIconEntry.getValue(),
-                    null
-            );
+        if (layout instanceof AbstractClientConnector) {
+            for (Map.Entry<Connector, String> dragIconEntry : dragAndDropState.dragIcons.entrySet()) {
+                ClientConnectorResources.setResource(
+                        (AbstractClientConnector) layout,
+                        dragIconEntry.getValue(),
+                        null
+                );
+            }
         }
 
         dragAndDropState.dragIcons = new HashMap<>();
@@ -69,8 +71,7 @@ public class DDUtil {
                         );
                         dragAndDropState.dragIcons.put(c, resourceId);
                     }
-                    dragAndDropState.dragCaptions.put(c,
-                            dragCaptionProvider.getDragCaption(c).getCaption());
+                    dragAndDropState.dragCaptions.put(c, dragCaption.getCaption());
                 }
             }
 

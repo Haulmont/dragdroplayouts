@@ -251,12 +251,12 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
+    public void setDragCaptionProvider(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getDragCaptionProvider() {
         return dragCaption;
     }
 }

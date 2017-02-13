@@ -81,12 +81,12 @@ public class VDDAccordion extends VAccordion
     }
 
     @Override
-    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
+    public void setDragCaptionProvider(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getDragCaptionProvider() {
         return dragCaption;
     }
 
