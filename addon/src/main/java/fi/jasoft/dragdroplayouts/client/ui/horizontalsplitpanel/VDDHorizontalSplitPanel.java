@@ -39,7 +39,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 public class VDDHorizontalSplitPanel extends VSplitPanelHorizontal implements
         VHasDragMode, VDDHasDropHandler<VDDHorizontalSplitPanelDropHandler>,
         DragStartListener, VHasDragFilter, VHasDragImageReferenceSupport,
-        VHasIframeShims, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasIframeShims, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String OVER = "v-ddsplitpanel-over";
     public static final String OVER_SPLITTER = OVER + "-splitter";
@@ -56,7 +56,7 @@ public class VDDHorizontalSplitPanel extends VSplitPanelHorizontal implements
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -75,12 +75,12 @@ public class VDDHorizontalSplitPanel extends VSplitPanelHorizontal implements
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

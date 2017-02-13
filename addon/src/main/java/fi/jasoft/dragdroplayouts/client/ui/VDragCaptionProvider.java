@@ -8,26 +8,28 @@ import com.vaadin.client.Util;
 import com.vaadin.client.ui.AbstractConnector;
 import com.vaadin.client.ui.Icon;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.DDLayoutState;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.DragAndDropAwareState;
 
-public class VComponentDragCaptionProvider {
-    private final DDLayoutState state;
+public class VDragCaptionProvider {
+    private final AbstractConnector root;
 
-    public VComponentDragCaptionProvider(DDLayoutState state) {
-        this.state = state;
+    public VDragCaptionProvider(AbstractConnector root) {
+        this.root = root;
     }
 
-    public Element getDragCaptionElement(Widget w, Widget root) {
+    public Element getDragCaptionElement(Widget w) {
         ComponentConnector component = Util.findConnectorFor(w);
-        ComponentConnector rootComponent = Util.findConnectorFor(root);
+        DDLayoutState state = ((DragAndDropAwareState) root.getState()).getDragAndDropState();
         String dragCaptionText = state.dragCaptions.get(component);
+        Document document = Document.get();
 
-        Element dragCaptionImage = Document.get().createElement("div");
-        Element dragCaption = Document.get().createElement("span");
+        Element dragCaptionImage = document.createElement("div");
+        Element dragCaption = document.createElement("span");
         dragCaption.setInnerText(dragCaptionText);
 
         String dragIconId = state.dragIcons.get(component);
         if (dragIconId != null) {
-            String resourceUrl = ((AbstractConnector) rootComponent).getResourceUrl(dragIconId);
+            String resourceUrl = root.getResourceUrl(dragIconId);
             Icon icon = component.getConnection().getIcon(resourceUrl);
             dragCaptionImage.appendChild(icon.getElement());
         }

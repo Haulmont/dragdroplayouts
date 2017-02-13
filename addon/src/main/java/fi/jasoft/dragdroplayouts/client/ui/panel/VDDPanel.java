@@ -32,7 +32,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 public class VDDPanel extends VPanel implements VHasDragMode,
         VDDHasDropHandler<VDDPanelDropHandler>, DragStartListener,
         VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims,
-        VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasGrabFilter, VHasDragCaptionProvider {
 
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
@@ -45,7 +45,7 @@ public class VDDPanel extends VPanel implements VHasDragMode,
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -73,12 +73,12 @@ public class VDDPanel extends VPanel implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

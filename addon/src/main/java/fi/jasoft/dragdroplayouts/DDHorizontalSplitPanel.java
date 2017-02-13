@@ -42,7 +42,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDHorizontalSplitPanel extends HorizontalSplitPanel
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     /**
      * The drop handler which handles dropped components in the layout.
@@ -56,6 +56,8 @@ public class DDHorizontalSplitPanel extends HorizontalSplitPanel
 
     private DragImageProvider dragImageProvider;
 
+    private DragCaptionProvider dragCaptionProvider;
+
     @Override
     public DragGrabFilter getDragGrabFilter() {
         return dragGrabFilter;
@@ -64,6 +66,16 @@ public class DDHorizontalSplitPanel extends HorizontalSplitPanel
     @Override
     public void setDragGrabFilter(DragGrabFilter dragGrabFilter) {
         this.dragGrabFilter = dragGrabFilter;
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     /**

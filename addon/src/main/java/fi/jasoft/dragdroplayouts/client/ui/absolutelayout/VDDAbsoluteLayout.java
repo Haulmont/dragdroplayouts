@@ -36,7 +36,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
         VDDHasDropHandler<VDDAbsoluteLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String CLASSNAME = "v-ddabsolutelayout";
 
@@ -51,7 +51,7 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
 
     private LayoutDragMode mode = LayoutDragMode.NONE;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -251,12 +251,12 @@ public class VDDAbsoluteLayout extends VAbsoluteLayout implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 }

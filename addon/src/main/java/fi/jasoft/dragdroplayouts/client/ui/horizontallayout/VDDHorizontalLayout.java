@@ -41,7 +41,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 public class VDDHorizontalLayout extends VHorizontalLayout
         implements VHasDragMode,
         VDDHasDropHandler<VDDHorizontalLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String OVER = "v-ddorderedlayout-over";
     public static final String OVER_SPACED = OVER + "-spaced";
@@ -52,7 +52,7 @@ public class VDDHorizontalLayout extends VHorizontalLayout
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -73,12 +73,12 @@ public class VDDHorizontalLayout extends VHorizontalLayout
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

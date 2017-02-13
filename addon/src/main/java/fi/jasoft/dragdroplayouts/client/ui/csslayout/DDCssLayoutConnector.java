@@ -21,26 +21,26 @@ import com.vaadin.shared.ui.Connect;
 import fi.jasoft.dragdroplayouts.DDCssLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
-import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
+import fi.jasoft.dragdroplayouts.client.ui.VDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDCssLayout.class)
 public class DDCssLayoutConnector extends CssLayoutConnector
-        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasDragCaptionProvider {
 
     private HTML5Support html5Support;
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         getWidget().setComponentDragCaption(dragCaption);
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return getWidget().getComponentDragCaption();
     }
 

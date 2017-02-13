@@ -38,6 +38,7 @@ import com.vaadin.client.ui.VTabsheet.TabCaption;
 import com.vaadin.client.ui.dd.VDragAndDropManager;
 import com.vaadin.client.ui.dd.VDragEvent;
 import com.vaadin.client.ui.dd.VTransferable;
+import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.accordion.VDDAccordion;
 import fi.jasoft.dragdroplayouts.client.ui.formlayout.VDDFormLayout;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.*;
@@ -201,8 +202,8 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
             }
 
             if (root instanceof VHasGrabFilter) {
-                if (!((VHasGrabFilter) root).getGrabFilter()
-                        .isGrabbable(root, target)) {
+                VGrabFilter grabFilter = ((VHasGrabFilter) root).getGrabFilter();
+                if (grabFilter != null && !grabFilter.isGrabbable(root, target)) {
                     return;
                 }
             }
@@ -413,27 +414,27 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         /*
          * Create the drag image
          */
-        boolean isDragImageCustom = false;
+        boolean hasDragCaption = false;
 
-        com.google.gwt.dom.client.Element dragImageElement;
-        if (root instanceof VHasComponentDragCaptionProvider) {
-            VComponentDragCaptionProvider dragCaptionProvider =
-                    ((VHasComponentDragCaptionProvider) root).getComponentDragCaption();
+        com.google.gwt.dom.client.Element dragImageElement = null;
+        if (root instanceof VHasDragCaptionProvider) {
+            VDragCaptionProvider dragCaptionProvider =
+                    ((VHasDragCaptionProvider) root).getComponentDragCaption();
             if (dragCaptionProvider != null) {
-                isDragImageCustom = true;
+                hasDragCaption = true;
                 dragImageElement = dragCaptionProvider
-                        .getDragCaptionElement(currentDraggedWidget, root);
-            } else {
-                dragImageElement = dragImageProvider == null ? null : dragImageProvider.getDragImageElement(w);
+                        .getDragCaptionElement(currentDraggedWidget);
             }
-        } else {
-            dragImageElement = dragImageProvider == null ? null : dragImageProvider.getDragImageElement(w);
+        }
+
+        if (!hasDragCaption && dragImageProvider != null) {
+            dragImageElement = dragImageProvider.getDragImageElement(w);
         }
 
         if (dragImageElement != null) {
 
             // Set stylename to proxy component as well
-            if (isDragImageCustom) {
+            if (hasDragCaption) {
                 dragImageElement.addClassName(ACTIVE_DRAG_CUSTOM_IMAGE_STYLENAME);
             } else {
                 dragImageElement.addClassName(ACTIVE_DRAG_SOURCE_STYLENAME);
@@ -481,7 +482,7 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         }
 
         Element clone;
-        if (isDragImageCustom) {
+        if (hasDragCaption) {
             currentDragEvent.setDragImage(dragImageElement);
             clone = dragImageElement;
         } else {
@@ -492,7 +493,7 @@ public class VLayoutDragDropMouseHandler implements MouseDownHandler,
         assert(clone != null);
 
         // Lock drag image dimensions
-        if (!isDragImageCustom) {
+        if (!hasDragCaption) {
             clone.getStyle().setWidth(dragImageElement.getOffsetWidth(), Style.Unit.PX);
             clone.getStyle().setHeight(dragImageElement.getOffsetHeight(), Style.Unit.PX);
         }

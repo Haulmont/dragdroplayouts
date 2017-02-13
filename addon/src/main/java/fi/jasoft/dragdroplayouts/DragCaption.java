@@ -10,4 +10,20 @@ public class DragCaption {
         this.caption = caption;
         this.icon = icon;
     }
+
+    public Resource getIcon() {
+        return icon;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setIcon(Resource icon) {
+        this.icon = icon;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
 }

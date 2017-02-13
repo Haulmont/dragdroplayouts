@@ -42,7 +42,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
  */
 public class VDDCssLayout extends VCssLayout implements VHasDragMode,
         VDDHasDropHandler<VDDCssLayoutDropHandler>, DragStartListener,
-        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String DRAG_SHADOW_STYLE_NAME = "v-ddcsslayout-drag-shadow";
 
@@ -55,7 +55,7 @@ public class VDDCssLayout extends VCssLayout implements VHasDragMode,
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -84,12 +84,12 @@ public class VDDCssLayout extends VCssLayout implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

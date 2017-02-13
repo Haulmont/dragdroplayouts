@@ -42,7 +42,7 @@ import java.util.Map;
  */
 public class DDFormLayout extends FormLayout
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
     /**
      * The drop handler which handles dropped components in the layout.
      */
@@ -55,6 +55,8 @@ public class DDFormLayout extends FormLayout
 
     private DragImageProvider dragImageProvider;
 
+    private DragCaptionProvider dragCaptionProvider;
+
     @Override
     public DragGrabFilter getDragGrabFilter() {
         return dragGrabFilter;
@@ -63,6 +65,16 @@ public class DDFormLayout extends FormLayout
     @Override
     public void setDragGrabFilter(DragGrabFilter dragGrabFilter) {
         this.dragGrabFilter = dragGrabFilter;
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     /**

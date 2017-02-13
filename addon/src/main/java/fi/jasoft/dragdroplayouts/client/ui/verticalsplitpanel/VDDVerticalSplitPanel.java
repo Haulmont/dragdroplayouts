@@ -40,7 +40,7 @@ public class VDDVerticalSplitPanel extends VSplitPanelVertical
         implements VHasDragMode,
         VDDHasDropHandler<VDDVerticalSplitPanelDropHandler>, DragStartListener,
         VHasDragFilter, VHasDragImageReferenceSupport, VHasIframeShims,
-        VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String OVER = "v-ddsplitpanel-over";
 
@@ -60,7 +60,7 @@ public class VDDVerticalSplitPanel extends VSplitPanelVertical
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private final IframeCoverUtility iframeCoverUtility = new IframeCoverUtility();
 
@@ -77,12 +77,12 @@ public class VDDVerticalSplitPanel extends VSplitPanelVertical
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

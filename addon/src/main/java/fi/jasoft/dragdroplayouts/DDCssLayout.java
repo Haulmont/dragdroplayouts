@@ -44,7 +44,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDCssLayout extends CssLayout
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     // Drop handler which handles dd drop events
     private DropHandler dropHandler;
@@ -55,6 +55,8 @@ public class DDCssLayout extends CssLayout
     private DragGrabFilter dragGrabFilter;
 
     private DragImageProvider dragImageProvider;
+
+    private DragCaptionProvider dragCaptionProvider;
 
     /**
      * Construct a new Css layout
@@ -71,6 +73,16 @@ public class DDCssLayout extends CssLayout
      */
     public DDCssLayout(Component... components) {
         super(components);
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     @Override

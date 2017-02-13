@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class DDPanel extends Panel
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     // Drop handler which handles dd drop events
     private DropHandler dropHandler;
@@ -45,6 +45,8 @@ public class DDPanel extends Panel
     private DragGrabFilter dragGrabFilter;
 
     private DragImageProvider dragImageProvider;
+
+    private DragCaptionProvider dragCaptionProvider;
 
     /**
      * @see Panel#Panel()
@@ -72,6 +74,16 @@ public class DDPanel extends Panel
      */
     public DDPanel(String caption, Component content) {
         super(caption, content);
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     @Override

@@ -20,7 +20,6 @@ import com.vaadin.event.dd.TargetDetails;
 import com.vaadin.event.dd.TargetDetailsImpl;
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
-import com.vaadin.server.Resource;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Component;
@@ -76,11 +75,6 @@ public class DDVerticalLayout extends VerticalLayout
     @Override
     public DragCaptionProvider getDragCaptionProvider() {
         return dragCaptionProvider;
-    }
-
-    @Override
-    public void setComponentResource(String id, Resource resource) {
-        setResource(id, resource);
     }
 
     /**

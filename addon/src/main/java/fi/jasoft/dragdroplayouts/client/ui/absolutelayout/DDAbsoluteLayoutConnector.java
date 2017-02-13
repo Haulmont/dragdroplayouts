@@ -22,16 +22,16 @@ import fi.jasoft.dragdroplayouts.DDAbsoluteLayout;
 import fi.jasoft.dragdroplayouts.client.VDragFilter;
 import fi.jasoft.dragdroplayouts.client.VGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.LayoutDragMode;
-import fi.jasoft.dragdroplayouts.client.ui.VComponentDragCaptionProvider;
+import fi.jasoft.dragdroplayouts.client.ui.VDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.VDragDropUtil;
-import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasComponentDragCaptionProvider;
+import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragCaptionProvider;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasDragFilter;
 import fi.jasoft.dragdroplayouts.client.ui.interfaces.VHasGrabFilter;
 import fi.jasoft.dragdroplayouts.client.ui.util.HTML5Support;
 
 @Connect(DDAbsoluteLayout.class)
 public class DDAbsoluteLayoutConnector extends AbsoluteLayoutConnector
-        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        implements Paintable, VHasDragFilter, VHasGrabFilter, VHasDragCaptionProvider {
 
     private HTML5Support html5Support;
 
@@ -102,12 +102,12 @@ public class DDAbsoluteLayoutConnector extends AbsoluteLayoutConnector
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         getWidget().setComponentDragCaption(dragCaption);
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return getWidget().getComponentDragCaption();
     }
 }

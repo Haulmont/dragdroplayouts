@@ -43,7 +43,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDGridLayout extends GridLayout
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     private DropHandler dropHandler;
 
@@ -54,6 +54,8 @@ public class DDGridLayout extends GridLayout
 
     private DragImageProvider dragImageProvider;
 
+    private DragCaptionProvider dragCaptionProvider;
+
     @Override
     public DragGrabFilter getDragGrabFilter() {
         return dragGrabFilter;
@@ -62,6 +64,16 @@ public class DDGridLayout extends GridLayout
     @Override
     public void setDragGrabFilter(DragGrabFilter dragGrabFilter) {
         this.dragGrabFilter = dragGrabFilter;
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     /**

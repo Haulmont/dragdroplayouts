@@ -43,7 +43,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDTabSheet extends TabSheet
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport {
+        DragFilterSupport, DragImageReferenceSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     /**
      * The drop handler which handles dropped components in the layout.
@@ -57,6 +57,8 @@ public class DDTabSheet extends TabSheet
 
     private DragImageProvider dragImageProvider;
 
+    private DragCaptionProvider dragCaptionProvider;
+
     @Override
     public DragGrabFilter getDragGrabFilter() {
         return dragGrabFilter;
@@ -65,6 +67,16 @@ public class DDTabSheet extends TabSheet
     @Override
     public void setDragGrabFilter(DragGrabFilter dragGrabFilter) {
         this.dragGrabFilter = dragGrabFilter;
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     public class TabSheetTargetDetails extends TargetDetailsImpl {

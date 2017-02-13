@@ -45,7 +45,7 @@ import java.util.Map;
 public class VDDAccordion extends VAccordion
         implements VHasDragMode, VDDHasDropHandler<VDDAccordionDropHandler>,
         DragStartListener, VDDTabContainer, VHasDragFilter,
-        VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String CLASSNAME_OVER = "dd-over";
     public static final String CLASSNAME_SPACER = "spacer";
@@ -62,7 +62,7 @@ public class VDDAccordion extends VAccordion
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -81,12 +81,12 @@ public class VDDAccordion extends VAccordion
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

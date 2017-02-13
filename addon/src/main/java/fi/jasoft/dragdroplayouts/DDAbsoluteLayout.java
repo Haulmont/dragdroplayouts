@@ -38,7 +38,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDAbsoluteLayout extends AbsoluteLayout
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragImageReferenceSupport, DragFilterSupport, DragGrabFilterSupport {
+        DragImageReferenceSupport, DragFilterSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     // Drop handler which handles dd drop events
     private DropHandler dropHandler;
@@ -49,6 +49,8 @@ public class DDAbsoluteLayout extends AbsoluteLayout
     private DragGrabFilter dragGrabFilter;
 
     private DragImageProvider dragImageProvider;
+
+    private DragCaptionProvider dragCaptionProvider;
 
     /**
      * Creates an AbsoluteLayout with full size.
@@ -76,6 +78,16 @@ public class DDAbsoluteLayout extends AbsoluteLayout
         if (dropHandler != null && isEnabled()) {
             dropHandler.getAcceptCriterion().paint(target);
         }
+    }
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     /**

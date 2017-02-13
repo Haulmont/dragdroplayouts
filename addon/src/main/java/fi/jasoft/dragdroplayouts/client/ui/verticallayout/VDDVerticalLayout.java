@@ -41,7 +41,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
         VDDHasDropHandler<VDDVerticalLayoutDropHandler>, DragStartListener,
         VHasDragFilter, VHasIframeShims, VHasDragImageReferenceSupport,
-        VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasGrabFilter, VHasDragCaptionProvider {
 
     private Widget currentlyEmphasised;
 
@@ -53,7 +53,7 @@ public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -91,12 +91,12 @@ public class VDDVerticalLayout extends VVerticalLayout implements VHasDragMode,
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

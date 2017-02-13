@@ -1,8 +1,9 @@
 package fi.jasoft.dragdroplayouts;
 
 import com.vaadin.event.dd.DropHandler;
+import com.vaadin.server.AbstractClientConnector;
+import com.vaadin.server.ClientConnectorResources;
 import com.vaadin.server.KeyMapper;
-import com.vaadin.server.ResourceReference;
 import com.vaadin.shared.Connector;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
@@ -11,10 +12,7 @@ import fi.jasoft.dragdroplayouts.client.ui.interfaces.DragAndDropAwareState;
 import fi.jasoft.dragdroplayouts.drophandlers.AbstractDefaultLayoutDropHandler;
 import fi.jasoft.dragdroplayouts.interfaces.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class DDUtil {
 
@@ -26,7 +24,17 @@ public class DDUtil {
         dragAndDropState.referenceImageComponents = new HashMap<Connector, Connector>();
         dragAndDropState.nonGrabbable = new ArrayList<>();
         dragAndDropState.dragCaptions = new HashMap<>();
+
+        for (Map.Entry<Connector, String> dragIconEntry : dragAndDropState.dragIcons.entrySet()) {
+            ClientConnectorResources.setResource(
+                    (AbstractClientConnector) dragIconEntry.getKey(),
+                    dragIconEntry.getValue(),
+                    null
+            );
+        }
+
         dragAndDropState.dragIcons = new HashMap<>();
+
         KeyMapper keyMapper = new KeyMapper();
 
         while (componentIterator.hasNext()) {
@@ -50,16 +58,19 @@ public class DDUtil {
                         .getDragCaptionProvider();
 
                 if (dragCaptionProvider != null) {
-                    if (dragCaptionProvider.getDragCaption(c).icon != null) {
-                        String resourceId = keyMapper.key(dragCaptionProvider.getDragCaption(c).icon);
-                        ResourceReference resourceReference = ResourceReference.create(dragCaptionProvider.getDragCaption(c).icon, layout, resourceId);
-                        dragAndDropState.resources.put(resourceId, resourceReference);
-                        ((DDVerticalLayout) layout).setComponentResource(resourceId,
-                                dragCaptionProvider.getDragCaption(c).icon);
+                    DragCaption dragCaption = dragCaptionProvider.getDragCaption(c);
+                    if (dragCaption != null && dragCaption.getIcon() != null
+                            && layout instanceof AbstractClientConnector) {
+                        String resourceId = keyMapper.key(dragCaption.getIcon());
+                        ClientConnectorResources.setResource(
+                                (AbstractClientConnector) layout,
+                                resourceId,
+                                dragCaption.getIcon()
+                        );
                         dragAndDropState.dragIcons.put(c, resourceId);
                     }
                     dragAndDropState.dragCaptions.put(c,
-                                    dragCaptionProvider.getDragCaption(c).caption);
+                            dragCaptionProvider.getDragCaption(c).getCaption());
                 }
             }
 

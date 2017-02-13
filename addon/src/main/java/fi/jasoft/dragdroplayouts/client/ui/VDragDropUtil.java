@@ -478,10 +478,10 @@ public final class VDragDropUtil {
                             .setGrabFilter(new VGrabFilter(state));
                 }
 
-                if (widget instanceof VHasComponentDragCaptionProvider) {
-                    if (((DragAndDropAwareState) connector.getState()).getDragAndDropState().dragCaptions.size() > 0) {
-                        ((VHasComponentDragCaptionProvider) widget)
-                                .setComponentDragCaption(new VComponentDragCaptionProvider(state));
+                if (widget instanceof VHasDragCaptionProvider) {
+                    if (state.dragCaptions.size() > 0) {
+                        ((VHasDragCaptionProvider) widget)
+                                .setComponentDragCaption(new VDragCaptionProvider(connector));
                     }
                 }
 

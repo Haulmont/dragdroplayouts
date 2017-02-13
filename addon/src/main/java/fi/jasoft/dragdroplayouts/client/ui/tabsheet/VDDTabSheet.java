@@ -43,7 +43,7 @@ import fi.jasoft.dragdroplayouts.client.ui.util.IframeCoverUtility;
 public class VDDTabSheet extends VTabsheet
         implements VHasDragMode, VDDHasDropHandler<VDDTabsheetDropHandler>,
         DragStartListener, VDDTabContainer, VHasDragFilter,
-        VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasComponentDragCaptionProvider {
+        VHasDragImageReferenceSupport, VHasIframeShims, VHasGrabFilter, VHasDragCaptionProvider {
 
     public static final String CLASSNAME_NEW_TAB = "new-tab";
     public static final String CLASSNAME_NEW_TAB_LEFT = "new-tab-left";
@@ -63,7 +63,7 @@ public class VDDTabSheet extends VTabsheet
 
     private VDragFilter dragFilter;
 
-    private VComponentDragCaptionProvider dragCaption;
+    private VDragCaptionProvider dragCaption;
 
     private VGrabFilter grabFilter;
 
@@ -96,12 +96,12 @@ public class VDDTabSheet extends VTabsheet
     }
 
     @Override
-    public void setComponentDragCaption(VComponentDragCaptionProvider dragCaption) {
+    public void setComponentDragCaption(VDragCaptionProvider dragCaption) {
         this.dragCaption = dragCaption;
     }
 
     @Override
-    public VComponentDragCaptionProvider getComponentDragCaption() {
+    public VDragCaptionProvider getComponentDragCaption() {
         return dragCaption;
     }
 

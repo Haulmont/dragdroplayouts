@@ -40,7 +40,7 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class DDAccordion extends Accordion
         implements LayoutDragSource, DropTarget, ShimSupport, LegacyComponent,
-        DragImageReferenceSupport, DragFilterSupport, DragGrabFilterSupport {
+        DragImageReferenceSupport, DragFilterSupport, DragGrabFilterSupport, HasDragCaptionProvider {
 
     /**
      * The drop handler which handles dropped components in the layout.
@@ -53,6 +53,8 @@ public class DDAccordion extends Accordion
     private DragGrabFilter dragGrabFilter;
 
     private DragImageProvider dragImageProvider;
+
+    private DragCaptionProvider dragCaptionProvider;
 
     /**
      * Construct a new accordion
@@ -94,6 +96,17 @@ public class DDAccordion extends Accordion
         }
 
         return new LayoutBoundTransferable(this, rawVariables);
+    }
+
+
+    @Override
+    public void setDragCaptionProvider(DragCaptionProvider provider) {
+        this.dragCaptionProvider = provider;
+    }
+
+    @Override
+    public DragCaptionProvider getDragCaptionProvider() {
+        return dragCaptionProvider;
     }
 
     /**
