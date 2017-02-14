@@ -26,10 +26,10 @@ public class DDUtil {
         dragAndDropState.dragCaptions = new HashMap<>();
 
         if (layout instanceof AbstractClientConnector) {
-            for (Map.Entry<Connector, String> dragIconEntry : dragAndDropState.dragIcons.entrySet()) {
+            for (String dragIcon : dragAndDropState.dragIcons.values()) {
                 ClientConnectorResources.setResource(
                         (AbstractClientConnector) layout,
-                        dragIconEntry.getValue(),
+                        dragIcon,
                         null
                 );
             }
