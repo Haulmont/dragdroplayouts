@@ -204,7 +204,7 @@ public final class VDragDropUtil {
         if (root instanceof VDDTabSheet) {
             VDDTabSheet tabsheet = (VDDTabSheet) root;
             TabCaption tab = WidgetUtil.findWidget(target.getElement(),
-                    TabCaption.class);
+                    TabCaption.class, false);
             if (tab != null
                     && tabsheet.getElement().isOrHasChild(tab.getElement())) {
                 return createTabsheetTransferableFromMouseDown(tabsheet, tab,
